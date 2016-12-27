@@ -50,8 +50,27 @@
 }
 
 - (void)addNewRandomUser {
-    NSOperation *fetchOperation = [[FetchRemoteRandomUsers alloc] init];
+    FetchRemoteRandomUsers *fetchOperation = [[FetchRemoteRandomUsers alloc] init];
+    __weak FetchRemoteRandomUsers *weakOperation = fetchOperation;
+    fetchOperation.completionBlock = ^{
+        if (fetchOperation.error != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showError:weakOperation.error];
+            });
+        }
+    };
     [self.fetchQueue addOperation:fetchOperation];
+}
+
+- (void)showError:(NSError *)error {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[error localizedDescription]
+                                                                   message:[error localizedRecoverySuggestion]
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -171,11 +190,27 @@
     return cell;
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        RandomUser *user = [_fetchedResultsController objectAtIndexPath:indexPath];
+        NSManagedObjectContext *context = [[CoreDataStack sharedInstance] viewContext];
+        [context deleteObject:user];
+    }
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     RandomUser *user = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [user email];
     NSString *fullName = [@[[user firstname], [user lastname]] componentsJoinedByString:@" "];
     cell.detailTextLabel.text = fullName;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
