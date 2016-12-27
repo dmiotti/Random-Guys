@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Models.h"
 
 @interface RandomUserDetailViewController : UIViewController
+
+@property (nonatomic, strong) RandomUser *randomUser;
 
 @end

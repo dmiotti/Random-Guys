@@ -84,6 +84,11 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
     randomUser.title = dict[@"name"][@"title"];
     randomUser.firstname = dict[@"name"][@"first"];
     randomUser.lastname = dict[@"name"][@"last"];
+    randomUser.city = dict[@"location"][@"street"];
+    randomUser.street = dict[@"location"][@"city"];
+    randomUser.postcode = [dict[@"location"][@"postcode"] integerValue];
+    randomUser.picture = dict[@"picture"][@"large"];
+    randomUser.phone = dict[@"phone"];
     return randomUser;
 }
 

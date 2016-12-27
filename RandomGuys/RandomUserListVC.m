@@ -11,6 +11,7 @@
 #import "Models.h"
 #import "CoreDataStack.h"
 #import "FetchRemoteRandomUsers.h"
+#import "RandomUserDetailViewController.h"
 #import <Masonry/Masonry.h>
 
 @interface RandomUserListVC ()<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
@@ -29,6 +30,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = NSLocalizedString(@"Random Guys", @"");
     
     self.fetchQueue = [[NSOperationQueue alloc] init];
     
@@ -187,6 +190,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    RandomUserDetailViewController *detail = [[RandomUserDetailViewController alloc] init];
+    detail.randomUser = [_fetchedResultsController objectAtIndexPath:indexPath];
+    [self.navigationController pushViewController:detail animated:YES];
 }
 
 @end
