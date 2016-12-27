@@ -7,10 +7,22 @@
 //
 
 #import "FetchRemoteRandomUsers.h"
+#import "CoreDataStack.h"
 
 static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
 
-@implementation FetchRemoteRandomUsers
+@implementation FetchRemoteRandomUsers {
+    NSManagedObjectContext *_importContext;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _importContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _importContext.parentContext = [[[CoreDataStack sharedInstance] persistentContainer] viewContext];
+    }
+    return self;
+}
 
 - (void)execute {
     NSURL *URL = [NSURL URLWithString:RandomUserEndPoint];
@@ -33,14 +45,46 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
     }
     
     NSArray<NSDictionary *> *results = json[@"results"];
-    NSMutableArray<RandomUser *> *parsedUsers = [NSMutableArray arrayWithCapacity:[results count]];
-    [results enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        RandomUser *ru = [[RandomUser alloc] initWithDictionary:obj];
-        [parsedUsers addObject:ru];
+    [_importContext performBlockAndWait:^{
+        [results enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self createOrUpdateRandomUserFromDictionary:obj];
+        }];
+        
+        NSError *saveError = nil;
+        [_importContext save:&saveError];
+        if (saveError != nil) {
+            _error = saveError;
+        }
     }];
-    _randomUsers = parsedUsers;
     
     [self finish];
+}
+
+- (RandomUser * _Nullable)createOrUpdateRandomUserFromDictionary:(NSDictionary * _Nonnull)dict {
+    NSString *email = dict[@"email"];
+    if (!email) {
+        return nil;
+    }
+    NSFetchRequest *fetchRequest = [RandomUser fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"email = %@", email];
+    NSError *fetchError = nil;
+    
+    NSArray *randomUsers = [_importContext executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError != nil) {
+        return nil;
+    }
+    
+    RandomUser *randomUser = [randomUsers firstObject];
+    if (!randomUser) {
+        randomUser = [NSEntityDescription insertNewObjectForEntityForName:@"RandomUser"
+                                                   inManagedObjectContext:_importContext];
+        randomUser.importedDate = [NSDate date];
+    }
+    randomUser.email = email;
+    randomUser.title = dict[@"name"][@"title"];
+    randomUser.firstname = dict[@"name"][@"first"];
+    randomUser.lastname = dict[@"name"][@"last"];
+    return randomUser;
 }
 
 + (NSData *)sendSynchronousRequest:(NSURLRequest *)request

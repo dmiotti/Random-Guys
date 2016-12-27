@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  RandomUserDetailViewController.h
 //  RandomGuys
 //
 //  Created by David Miotti on 27/12/2016.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface RandomUserDetailViewController : UIViewController
 
 @end
-

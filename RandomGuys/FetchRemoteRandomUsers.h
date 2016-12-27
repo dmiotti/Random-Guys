@@ -8,11 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Operation.h"
-#import "RandomUser.h"
+#import "Models.h"
 
 @interface FetchRemoteRandomUsers : Operation
 
-@property (nonatomic, strong, readonly, nullable) NSArray<RandomUser *> *randomUsers;
 @property (nonatomic, strong, readonly, nonnull) NSError *error;
 
 @end
