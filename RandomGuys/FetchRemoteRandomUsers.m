@@ -80,16 +80,18 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
                                                    inManagedObjectContext:_importContext];
         randomUser.importedDate = [NSDate date];
     }
-    randomUser.email = email;
-    randomUser.title = dict[@"name"][@"title"];
-    randomUser.firstname = dict[@"name"][@"first"];
-    randomUser.lastname = dict[@"name"][@"last"];
-    randomUser.city = dict[@"location"][@"street"];
-    randomUser.street = dict[@"location"][@"city"];
-    randomUser.state = dict[@"location"][@"state"];
-    randomUser.postcode = [dict[@"location"][@"postcode"] integerValue];
-    randomUser.picture = dict[@"picture"][@"large"];
-    randomUser.phone = dict[@"phone"];
+    
+    randomUser.email        = email;
+    randomUser.title        = dict[@"name"][@"title"];
+    randomUser.firstname    = dict[@"name"][@"first"];
+    randomUser.lastname     = dict[@"name"][@"last"];
+    randomUser.city         = dict[@"location"][@"street"];
+    randomUser.street       = dict[@"location"][@"city"];
+    randomUser.state        = dict[@"location"][@"state"];
+    randomUser.postcode     = [dict[@"location"][@"postcode"] integerValue];
+    randomUser.picture      = dict[@"picture"][@"large"];
+    randomUser.phone        = dict[@"phone"];
+    
     return randomUser;
 }
 
