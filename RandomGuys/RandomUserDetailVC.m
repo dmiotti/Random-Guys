@@ -6,13 +6,13 @@
 //  Copyright © 2016 David Miotti. All rights reserved.
 //
 
-#import "RandomUserDetailViewController.h"
+#import "RandomUserDetailVC.h"
 
-@interface RandomUserDetailViewController ()
+@interface RandomUserDetailVC ()
 
 @end
 
-@implementation RandomUserDetailViewController
+@implementation RandomUserDetailVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];

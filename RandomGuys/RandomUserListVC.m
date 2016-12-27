@@ -7,20 +7,19 @@
 //
 
 #import "RandomUserListVC.h"
-#import "RandomUserTableViewCell.h"
+#import "RandomUserCell.h"
 #import "Models.h"
 #import "CoreDataStack.h"
 #import "FetchRemoteRandomUsers.h"
-#import "RandomUserDetailViewController.h"
+#import "RandomUserDetailVC.h"
 #import <Masonry/Masonry.h>
 
 @interface RandomUserListVC ()<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong) NSArray<RandomUser *> *randomUsers;
-@property (nonatomic, strong) UITableView *tableView;
-
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSOperationQueue *fetchQueue;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -32,29 +31,7 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Random Guys", @"");
-    
     self.fetchQueue = [[NSOperationQueue alloc] init];
-    
-    self.randomUsers = [NSArray array];
-    
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.tableView.rowHeight = 70;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.tableView registerClass:[RandomUserTableViewCell class]
-           forCellReuseIdentifier:[RandomUserTableViewCell reuseIdentifier]];
-    self.tableView.tableFooterView = [UIView new];
-    [self.view addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    
-    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                            target:self
-                                                                            action:@selector(addNewRandomUser)];
-    self.navigationItem.rightBarButtonItem = addBtn;
     
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -68,10 +45,28 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
+- (IBAction)tappedAddBtn:(id)sender {
+    [self addNewRandomUser];
+}
+
 - (void)addNewRandomUser {
     NSOperation *fetchOperation = [[FetchRemoteRandomUsers alloc] init];
     [self.fetchQueue addOperation:fetchOperation];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [super prepareForSegue:segue sender:sender];
+    
+    UIViewController *destination = segue.destinationViewController;
+    if ([destination isKindOfClass:[RandomUserDetailVC class]]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        RandomUser *ru = [_fetchedResultsController objectAtIndexPath:indexPath];
+        RandomUserDetailVC *dest = (RandomUserDetailVC *)destination;
+        dest.randomUser = ru;
+    }
+}
+
+#pragma mark - NSNotification
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
     [self addNewRandomUser];
@@ -88,8 +83,7 @@
     
     NSFetchRequest *fetchRequest = [RandomUser fetchRequest];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"importedDate" ascending:NO];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"importedDate" ascending:NO];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
     [fetchRequest setFetchBatchSize:20];
@@ -137,7 +131,7 @@
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     
     switch(type) {
             
@@ -172,8 +166,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RandomUserTableViewCell reuseIdentifier]
-                                                            forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RandomUserCell reuseIdentifier] forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -181,19 +174,8 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     RandomUser *user = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [user email];
-    
     NSString *fullName = [@[[user firstname], [user lastname]] componentsJoinedByString:@" "];
     cell.detailTextLabel.text = fullName;
-}
-
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    RandomUserDetailViewController *detail = [[RandomUserDetailViewController alloc] init];
-    detail.randomUser = [_fetchedResultsController objectAtIndexPath:indexPath];
-    [self.navigationController pushViewController:detail animated:YES];
 }
 
 @end

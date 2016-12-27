@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RandomUserTableViewCell : UITableViewCell
+@interface RandomUserCell : UITableViewCell
 
 + (NSString *)reuseIdentifier;
 

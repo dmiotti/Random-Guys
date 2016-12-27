@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Models.h"
 
-@interface RandomUserDetailViewController : UIViewController
+@interface RandomUserDetailVC : UIViewController
 
 @property (nonatomic, strong) RandomUser *randomUser;
 
