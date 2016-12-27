@@ -1,4 +1,4 @@
-# RandomUsers
+# Random Guys
 
 ## Overview
 
@@ -18,6 +18,6 @@ bundle exec pod install
 open RandomGuys.xcworkspace
 ```
 
-## RandomUsers fetch
+## Random users fetch
 
-Random users are fetching at each app launch and by hitting the `+` button.
+Random users are fetched at each app launch and by hitting the `+` button.
