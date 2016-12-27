@@ -10,6 +10,7 @@
 #import "Operation.h"
 #import "Models.h"
 
+/// This class is used to download a new user from api.randomuser.me
 @interface FetchRemoteRandomUsers : Operation
 
 @property (nonatomic, strong, readonly, nonnull) NSError *error;

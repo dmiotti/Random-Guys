@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+/// This class is responsible of giving a correct access to CoreData
 @interface CoreDataStack : NSObject
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;

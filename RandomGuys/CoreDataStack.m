@@ -26,42 +26,19 @@
                                                  selector:@selector(mainContextChanged:)
                                                      name:NSManagedObjectContextDidSaveNotification
                                                    object:nil];
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(mainContextChanged(notification:)),
-//                                               name: .NSManagedObjectContextDidSave,
-//                                               object: self.managedObjectContext)
-//        
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(bgContextChanged(notification:)),
-//                                               name: .NSManagedObjectContextDidSave,
-//                                               object: self.backgroundManagedObjectContext)
     }
     return self;
 }
 
 - (void)dealloc {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)mainContextChanged:(NSNotification *)notification {
-    
+    [[self viewContext] performBlock:^{
+        [[self viewContext] mergeChangesFromContextDidSaveNotification:notification];
+    }];
 }
-
-- (void)bgContextChanged:(NSNotification *)notification {
-    
-}
-
-////#7
-//@objc func mainContextChanged(notification: NSNotification) {
-//    backgroundManagedObjectContext.perform { [unowned self] in
-//        self.backgroundManagedObjectContext.mergeChanges(fromContextDidSave: notification as Notification)
-//    }
-//}
-//@objc func bgContextChanged(notification: NSNotification) {
-//    managedObjectContext.perform{ [unowned self] in
-//        self.managedObjectContext.mergeChanges(fromContextDidSave: notification as Notification)
-//    }
-//}
 
 #pragma mark - Core Data stack
 
