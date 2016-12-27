@@ -16,9 +16,12 @@
 		58E13A1B1E129C50005BF5E8 /* FetchRemoteRandomUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E13A1A1E129C50005BF5E8 /* FetchRemoteRandomUsers.m */; };
 		58E13A1F1E129C6B005BF5E8 /* RandomUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E13A1E1E129C6B005BF5E8 /* RandomUser.m */; };
 		58E13A221E129E0B005BF5E8 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E13A211E129E0B005BF5E8 /* Operation.m */; };
+		8B4EA43DAAF83DD4E22D0099 /* libPods-RandomGuys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A6FE374B20E05453E916A5 /* libPods-RandomGuys.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1BAD0AF284DF2E57EA659E8F /* Pods-RandomGuys.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomGuys.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RandomGuys/Pods-RandomGuys.debug.xcconfig"; sourceTree = "<group>"; };
+		55A6FE374B20E05453E916A5 /* libPods-RandomGuys.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RandomGuys.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E139F71E129327005BF5E8 /* RandomGuys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomGuys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E139FB1E129327005BF5E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		58E139FD1E129327005BF5E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,6 +38,7 @@
 		58E13A1E1E129C6B005BF5E8 /* RandomUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUser.m; sourceTree = "<group>"; };
 		58E13A201E129E0B005BF5E8 /* Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
 		58E13A211E129E0B005BF5E8 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
+		F0237D9BFA2A5DFE7C5FC848 /* Pods-RandomGuys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomGuys.release.xcconfig"; path = "Pods/Target Support Files/Pods-RandomGuys/Pods-RandomGuys.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,17 +46,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B4EA43DAAF83DD4E22D0099 /* libPods-RandomGuys.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		490F45FBD271C308D40032B3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1BAD0AF284DF2E57EA659E8F /* Pods-RandomGuys.debug.xcconfig */,
+				F0237D9BFA2A5DFE7C5FC848 /* Pods-RandomGuys.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		58E139EE1E129327005BF5E8 = {
 			isa = PBXGroup;
 			children = (
 				58E139F91E129327005BF5E8 /* RandomGuys */,
 				58E139F81E129327005BF5E8 /* Products */,
+				490F45FBD271C308D40032B3 /* Pods */,
+				A856C2AF1054D980A328FF85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +126,14 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		A856C2AF1054D980A328FF85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55A6FE374B20E05453E916A5 /* libPods-RandomGuys.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -117,9 +141,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58E13A111E129328005BF5E8 /* Build configuration list for PBXNativeTarget "RandomGuys" */;
 			buildPhases = (
+				DD29CFDC22559E6E93A94223 /* [CP] Check Pods Manifest.lock */,
 				58E139F31E129327005BF5E8 /* Sources */,
 				58E139F41E129327005BF5E8 /* Frameworks */,
 				58E139F51E129327005BF5E8 /* Resources */,
+				70BAD2AC10562DB276831CC6 /* [CP] Embed Pods Frameworks */,
+				BD0EFE752AF85962B7A9EA55 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -175,6 +202,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		70BAD2AC10562DB276831CC6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RandomGuys/Pods-RandomGuys-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD0EFE752AF85962B7A9EA55 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RandomGuys/Pods-RandomGuys-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD29CFDC22559E6E93A94223 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58E139F31E129327005BF5E8 /* Sources */ = {
@@ -297,6 +372,7 @@
 		};
 		58E13A121E129328005BF5E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BAD0AF284DF2E57EA659E8F /* Pods-RandomGuys.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = XNRBFC9V37;
@@ -309,6 +385,7 @@
 		};
 		58E13A131E129328005BF5E8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0237D9BFA2A5DFE7C5FC848 /* Pods-RandomGuys.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = XNRBFC9V37;
