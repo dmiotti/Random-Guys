@@ -13,7 +13,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
     if (self) {
-        
+        _email = dict[@"email"];
     }
     return self;
 }
