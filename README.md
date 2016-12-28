@@ -2,11 +2,9 @@
 
 ## Overview
 
-The purpose of the project is a test to be a Lydia iOS developer.
-
 It's a basic app that manage:
     
-    - Retreive one User from randomuser.me
+    - Download one user at a time
     - List downloaded users
     - Show user's details
     - Delete a downloaded user
