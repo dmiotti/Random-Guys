@@ -7,7 +7,6 @@
 //
 
 #import "RandomUserDetailVC.h"
-#import "RandomUserDetailCell.h"
 
 @interface RandomUserDetailVC ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -36,9 +35,7 @@ typedef NS_ENUM(NSInteger, RandomUserDetailField) {
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.title = [@[self.randomUser.firstname.capitalizedString,
-                    self.randomUser.lastname.capitalizedString]
-                  componentsJoinedByString:@" "];
+    self.title = [[@[self.randomUser.firstname, self.randomUser.lastname] componentsJoinedByString:@" "] capitalizedString];
 }
 
 #pragma mark - UITableViewDataSource
@@ -52,7 +49,7 @@ typedef NS_ENUM(NSInteger, RandomUserDetailField) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RandomUserDetailCell reuseIdentifier] forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RandomUserDetailCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }

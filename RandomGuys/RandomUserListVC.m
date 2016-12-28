@@ -7,17 +7,17 @@
 //
 
 #import "RandomUserListVC.h"
-#import "RandomUserCell.h"
 #import "Models.h"
 #import "CoreDataStack.h"
 #import "FetchRemoteRandomUsers.h"
 #import "RandomUserDetailVC.h"
 #import <Masonry/Masonry.h>
 
+/// List all Users in a tableView
 @interface RandomUserListVC ()<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) NSOperationQueue *fetchQueue;
+@property (nonatomic, strong) NSOperationQueue *downloadQueue;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -31,7 +31,7 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Random Guys", @"");
-    self.fetchQueue = [[NSOperationQueue alloc] init];
+    self.downloadQueue = [[NSOperationQueue alloc] init];
     
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -40,26 +40,28 @@
         exit(-1);  // Fail
     }
     
-    [self addNewRandomUser];
+    [self downloadNewRandomUser];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (IBAction)tappedAddBtn:(id)sender {
-    [self addNewRandomUser];
+    [self downloadNewRandomUser];
 }
 
-- (void)addNewRandomUser {
-    FetchRemoteRandomUsers *fetchOperation = [[FetchRemoteRandomUsers alloc] init];
-    __weak FetchRemoteRandomUsers *weakOperation = fetchOperation;
-    fetchOperation.completionBlock = ^{
-        if (fetchOperation.error != nil) {
+- (void)downloadNewRandomUser {
+    FetchRemoteRandomUsers *downloadOperation = [[FetchRemoteRandomUsers alloc] init];
+    __weak FetchRemoteRandomUsers *weakOperation = downloadOperation;
+    __weak RandomUserListVC *weakSelf = self;
+    downloadOperation.completionBlock = ^{
+        NSError *err = [weakOperation error];
+        if (weakSelf != nil && err != nil) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self showError:weakOperation.error];
+                [weakSelf showError:err];
             });
         }
     };
-    [self.fetchQueue addOperation:fetchOperation];
+    [self.downloadQueue addOperation:downloadOperation];
 }
 
 - (void)showError:(NSError *)error {
@@ -76,8 +78,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [super prepareForSegue:segue sender:sender];
     
-    UIViewController *destination = segue.destinationViewController;
-    if ([destination isKindOfClass:[RandomUserDetailVC class]]) {
+    if ([segue.identifier isEqualToString:@"RandomUserDetailsShow"]) {
+        UIViewController *destination = segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         RandomUser *ru = [_fetchedResultsController objectAtIndexPath:indexPath];
         RandomUserDetailVC *dest = (RandomUserDetailVC *)destination;
@@ -88,7 +90,7 @@
 #pragma mark - NSNotification
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
-    [self addNewRandomUser];
+    [self downloadNewRandomUser];
 }
 
 #pragma mark - NSFetchedResultsController
@@ -115,7 +117,6 @@
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
-    
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
@@ -185,7 +186,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RandomUserCell reuseIdentifier] forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RandomUserCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }

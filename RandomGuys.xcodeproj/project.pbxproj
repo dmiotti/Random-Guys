@@ -10,8 +10,6 @@
 		580494531E12B1D100EC8C5B /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 580494521E12B1D100EC8C5B /* CoreDataStack.m */; };
 		5848A77B1E12D091009D38B3 /* RandomUserDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5848A77A1E12D091009D38B3 /* RandomUserDetailVC.m */; };
 		5848A77D1E12D4E7009D38B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5848A77C1E12D4E7009D38B3 /* Main.storyboard */; };
-		5848A7801E12E760009D38B3 /* RandomUserDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5848A77F1E12E760009D38B3 /* RandomUserDetailCell.m */; };
-		5848A7821E12EEDC009D38B3 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5848A7811E12EEDC009D38B3 /* README.md */; };
 		58E139FC1E129327005BF5E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E139FB1E129327005BF5E8 /* main.m */; };
 		58E139FF1E129327005BF5E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E139FE1E129327005BF5E8 /* AppDelegate.m */; };
 		58E13A021E129327005BF5E8 /* RandomUserListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E13A011E129327005BF5E8 /* RandomUserListVC.m */; };
@@ -20,7 +18,6 @@
 		58E13A0D1E129328005BF5E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58E13A0B1E129328005BF5E8 /* LaunchScreen.storyboard */; };
 		58E13A1B1E129C50005BF5E8 /* FetchRemoteRandomUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E13A1A1E129C50005BF5E8 /* FetchRemoteRandomUsers.m */; };
 		58E13A221E129E0B005BF5E8 /* Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E13A211E129E0B005BF5E8 /* Operation.m */; };
-		58E13A271E12AA0D005BF5E8 /* RandomUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E13A261E12AA0D005BF5E8 /* RandomUserCell.m */; };
 		8B4EA43DAAF83DD4E22D0099 /* libPods-RandomGuys.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A6FE374B20E05453E916A5 /* libPods-RandomGuys.a */; };
 /* End PBXBuildFile section */
 
@@ -32,8 +29,6 @@
 		5848A7791E12D091009D38B3 /* RandomUserDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserDetailVC.h; sourceTree = "<group>"; };
 		5848A77A1E12D091009D38B3 /* RandomUserDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserDetailVC.m; sourceTree = "<group>"; };
 		5848A77C1E12D4E7009D38B3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		5848A77E1E12E760009D38B3 /* RandomUserDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserDetailCell.h; sourceTree = "<group>"; };
-		5848A77F1E12E760009D38B3 /* RandomUserDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserDetailCell.m; sourceTree = "<group>"; };
 		5848A7811E12EEDC009D38B3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		58E139F71E129327005BF5E8 /* RandomGuys.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomGuys.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E139FB1E129327005BF5E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -49,8 +44,6 @@
 		58E13A1A1E129C50005BF5E8 /* FetchRemoteRandomUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchRemoteRandomUsers.m; sourceTree = "<group>"; };
 		58E13A201E129E0B005BF5E8 /* Operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Operation.h; sourceTree = "<group>"; };
 		58E13A211E129E0B005BF5E8 /* Operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Operation.m; sourceTree = "<group>"; };
-		58E13A251E12AA0D005BF5E8 /* RandomUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserCell.h; sourceTree = "<group>"; };
-		58E13A261E12AA0D005BF5E8 /* RandomUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserCell.m; sourceTree = "<group>"; };
 		58E13A2E1E12ACD1005BF5E8 /* Models.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Models.h; sourceTree = "<group>"; };
 		F0237D9BFA2A5DFE7C5FC848 /* Pods-RandomGuys.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RandomGuys.release.xcconfig"; path = "Pods/Target Support Files/Pods-RandomGuys/Pods-RandomGuys.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,8 +74,6 @@
 			children = (
 				5848A7791E12D091009D38B3 /* RandomUserDetailVC.h */,
 				5848A77A1E12D091009D38B3 /* RandomUserDetailVC.m */,
-				5848A77E1E12E760009D38B3 /* RandomUserDetailCell.h */,
-				5848A77F1E12E760009D38B3 /* RandomUserDetailCell.m */,
 			);
 			name = RandomUserDetail;
 			sourceTree = "<group>";
@@ -156,8 +147,8 @@
 		58E13A231E12A9EC005BF5E8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5848A7781E12D076009D38B3 /* RandomUserDetail */,
 				58E13A241E12A9F2005BF5E8 /* RandomUserList */,
+				5848A7781E12D076009D38B3 /* RandomUserDetail */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -167,8 +158,6 @@
 			children = (
 				58E13A001E129327005BF5E8 /* RandomUserListVC.h */,
 				58E13A011E129327005BF5E8 /* RandomUserListVC.m */,
-				58E13A251E12AA0D005BF5E8 /* RandomUserCell.h */,
-				58E13A261E12AA0D005BF5E8 /* RandomUserCell.m */,
 			);
 			name = RandomUserList;
 			sourceTree = "<group>";
@@ -304,7 +293,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5848A7801E12E760009D38B3 /* RandomUserDetailCell.m in Sources */,
 				58E13A081E129328005BF5E8 /* RandomGuys.xcdatamodeld in Sources */,
 				58E13A1B1E129C50005BF5E8 /* FetchRemoteRandomUsers.m in Sources */,
 				58E13A021E129327005BF5E8 /* RandomUserListVC.m in Sources */,
@@ -313,8 +301,6 @@
 				58E139FF1E129327005BF5E8 /* AppDelegate.m in Sources */,
 				58E13A221E129E0B005BF5E8 /* Operation.m in Sources */,
 				58E139FC1E129327005BF5E8 /* main.m in Sources */,
-				5848A7821E12EEDC009D38B3 /* README.md in Sources */,
-				58E13A271E12AA0D005BF5E8 /* RandomUserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

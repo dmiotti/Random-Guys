@@ -13,6 +13,7 @@
 /// This class is used to download a new user from api.randomuser.me
 @interface FetchRemoteRandomUsers : Operation
 
+/// If an error occur during the execution
 @property (nonatomic, strong, readonly, nonnull) NSError *error;
 
 @end

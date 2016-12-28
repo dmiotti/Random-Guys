@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+/// A basic wrapper around NSOperation
 @interface Operation : NSOperation
 
 - (void)execute;

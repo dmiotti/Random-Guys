@@ -16,6 +16,8 @@
 
 + (instancetype)sharedInstance;
 
+/// The main context, for interface display you can directly his this context
+/// Otherwise you should create a Private context with this one has parent
 - (NSManagedObjectContext *)viewContext;
 
 - (void)saveContext;

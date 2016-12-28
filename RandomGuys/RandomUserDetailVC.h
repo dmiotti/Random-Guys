@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "Models.h"
 
+/// Shows a user detail interface
 @interface RandomUserDetailVC : UIViewController
 
+/// You need to pass this value
 @property (nonatomic, strong) RandomUser *randomUser;
 
 @end

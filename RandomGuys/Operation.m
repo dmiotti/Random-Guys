@@ -39,7 +39,7 @@
 }
 
 - (void)execute {
-    
+    // You must override this method and call finish when you're done
 }
 
 - (void)finish {

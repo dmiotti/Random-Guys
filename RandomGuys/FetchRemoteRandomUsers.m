@@ -19,12 +19,13 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
     self = [super init];
     if (self) {
         _importContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _importContext.parentContext = [[[CoreDataStack sharedInstance] persistentContainer] viewContext];
+        _importContext.parentContext = [[CoreDataStack sharedInstance] viewContext];
     }
     return self;
 }
 
 - (void)execute {
+    /// Fetch the JSON
     NSURL *URL = [NSURL URLWithString:RandomUserEndPoint];
     NSURLRequest *req = [NSURLRequest requestWithURL:URL];
     NSURLResponse *response = nil;
@@ -44,6 +45,7 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
         return;
     }
     
+    /// Parse the received JSON
     NSArray<NSDictionary *> *results = json[@"results"];
     [_importContext performBlockAndWait:^{
         [results enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -57,18 +59,22 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
         }
     }];
     
+    /// Tells the queue we finished this operation
     [self finish];
 }
 
+/// Validates unicity with email
 - (RandomUser * _Nullable)createOrUpdateRandomUserFromDictionary:(NSDictionary * _Nonnull)dict {
+    // Since we validate unicity with email, it must be present
     NSString *email = dict[@"email"];
     if (!email) {
         return nil;
     }
+
+    // Check for a matching one in coredata
     NSFetchRequest *fetchRequest = [RandomUser fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"email = %@", email];
     NSError *fetchError = nil;
-    
     NSArray *randomUsers = [_importContext executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError != nil) {
         return nil;
@@ -76,11 +82,13 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
     
     RandomUser *randomUser = [randomUsers firstObject];
     if (!randomUser) {
+        /// Otherwise create a new entity in coredata
         randomUser = [NSEntityDescription insertNewObjectForEntityForName:@"RandomUser"
                                                    inManagedObjectContext:_importContext];
         randomUser.importedDate = [NSDate date];
     }
     
+    // You certainly want to check all those fields avoiding crashes on api changes
     randomUser.email        = email;
     randomUser.title        = dict[@"name"][@"title"];
     randomUser.firstname    = dict[@"name"][@"first"];
@@ -95,6 +103,7 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
     return randomUser;
 }
 
+/// Because it's a lot easier to code this kind of problem sequencially
 + (NSData *)sendSynchronousRequest:(NSURLRequest *)request
                  returningResponse:(__autoreleasing NSURLResponse **)responsePtr
                              error:(__autoreleasing NSError **)errorPtr {
