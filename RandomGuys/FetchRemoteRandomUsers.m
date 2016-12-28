@@ -98,6 +98,7 @@ static NSString *RandomUserEndPoint = @"https://api.randomuser.me";
     randomUser.state        = dict[@"location"][@"state"];
     randomUser.postcode     = [dict[@"location"][@"postcode"] integerValue];
     randomUser.picture      = dict[@"picture"][@"large"];
+    randomUser.thumbnail    = dict[@"picture"][@"thumbnail"];
     randomUser.phone        = dict[@"phone"];
     
     return randomUser;

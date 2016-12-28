@@ -11,6 +11,8 @@
 #import "CoreDataStack.h"
 #import "FetchRemoteRandomUsers.h"
 #import "RandomUserDetailVC.h"
+#import "RandomUserCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <Masonry/Masonry.h>
 
 /// List all Users in a tableView
@@ -203,7 +205,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RandomUserCell" forIndexPath:indexPath];
+    RandomUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RandomUserCell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -220,11 +222,13 @@
     }
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(RandomUserCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     RandomUser *user = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [user email];
+    cell.userTitleLbl.text = [user email];
     NSString *fullName = [@[[user firstname], [user lastname]] componentsJoinedByString:@" "];
-    cell.detailTextLabel.text = fullName;
+    cell.userSubtitleLbl.text = fullName;
+    NSURL *thumbnail = [NSURL URLWithString:user.thumbnail];
+    [cell.userImageView sd_setImageWithURL:thumbnail];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

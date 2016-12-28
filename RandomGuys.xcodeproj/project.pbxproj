@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		580494531E12B1D100EC8C5B /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 580494521E12B1D100EC8C5B /* CoreDataStack.m */; };
+		582D08021E13452D00B6059E /* RandomUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 582D08011E13452D00B6059E /* RandomUserCell.m */; };
 		5848A77B1E12D091009D38B3 /* RandomUserDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5848A77A1E12D091009D38B3 /* RandomUserDetailVC.m */; };
 		5848A77D1E12D4E7009D38B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5848A77C1E12D4E7009D38B3 /* Main.storyboard */; };
 		58E139FC1E129327005BF5E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E139FB1E129327005BF5E8 /* main.m */; };
@@ -26,6 +27,8 @@
 		55A6FE374B20E05453E916A5 /* libPods-RandomGuys.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RandomGuys.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		580494511E12B1D100EC8C5B /* CoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
 		580494521E12B1D100EC8C5B /* CoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStack.m; sourceTree = "<group>"; };
+		582D08001E13452D00B6059E /* RandomUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserCell.h; sourceTree = "<group>"; };
+		582D08011E13452D00B6059E /* RandomUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserCell.m; sourceTree = "<group>"; };
 		5848A7791E12D091009D38B3 /* RandomUserDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserDetailVC.h; sourceTree = "<group>"; };
 		5848A77A1E12D091009D38B3 /* RandomUserDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserDetailVC.m; sourceTree = "<group>"; };
 		5848A77C1E12D4E7009D38B3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 			children = (
 				58E13A001E129327005BF5E8 /* RandomUserListVC.h */,
 				58E13A011E129327005BF5E8 /* RandomUserListVC.m */,
+				582D08001E13452D00B6059E /* RandomUserCell.h */,
+				582D08011E13452D00B6059E /* RandomUserCell.m */,
 			);
 			name = RandomUserList;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 				58E139FF1E129327005BF5E8 /* AppDelegate.m in Sources */,
 				58E13A221E129E0B005BF5E8 /* Operation.m in Sources */,
 				58E139FC1E129327005BF5E8 /* main.m in Sources */,
+				582D08021E13452D00B6059E /* RandomUserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

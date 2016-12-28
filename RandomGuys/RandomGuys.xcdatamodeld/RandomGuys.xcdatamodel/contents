@@ -11,9 +11,10 @@
         <attribute name="postcode" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RandomUser" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="RandomUser" positionX="-63" positionY="-18" width="128" height="225"/>
     </elements>
 </model>
