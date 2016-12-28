@@ -7,7 +7,7 @@ It's a basic app that manage:
     - Download one user at a time
     - List downloaded users
     - Show user's details
-    - Delete a downloaded user
+    - Delete/Clear downloaded user
 
 This app is using CoreData in order to save as many users the device can.
 

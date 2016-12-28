@@ -14,6 +14,6 @@
 @interface FetchRemoteRandomUsers : Operation
 
 /// If an error occur during the execution
-@property (nonatomic, strong, readonly, nonnull) NSError *error;
+@property (nonatomic, strong, readonly, nullable) NSError *error;
 
 @end

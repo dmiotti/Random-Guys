@@ -110,6 +110,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Msh-YN-CKf">
+                        <barButtonItem key="leftBarButtonItem" title="Clear" id="BQI-Ic-b9f">
+                            <connections>
+                                <action selector="tappedClearBtn:" destination="oSy-VQ-8UB" id="zvt-Aa-Xnl"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="tcq-zm-z4b">
                             <connections>
                                 <action selector="tappedAddBtn:" destination="oSy-VQ-8UB" id="yZp-Ys-DKf"/>

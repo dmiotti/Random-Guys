@@ -10,6 +10,7 @@
 #import "Models.h"
 #import "CoreDataStack.h"
 #import "FetchRemoteRandomUsers.h"
+#import "ClearOperation.h"
 #import "RandomUserDetailVC.h"
 #import "RandomUserCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -19,7 +20,7 @@
 @interface RandomUserListVC ()<UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) NSOperationQueue *downloadQueue;
+@property (nonatomic, strong) NSOperationQueue *queue;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -33,7 +34,7 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Random Guys", @"");
-    self.downloadQueue = [[NSOperationQueue alloc] init];
+    self.queue = [[NSOperationQueue alloc] init];
     
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -51,6 +52,29 @@
     [self downloadNewRandomUser];
 }
 
+- (IBAction)tappedClearBtn:(id)sender {
+    [self clearAllUsers];
+}
+
+#pragma mark - Private methods
+
+- (void)clearAllUsers {
+    [self showDownloadState];
+    ClearOperation *clearOperation = [[ClearOperation alloc] init];
+    __weak ClearOperation *weakOperation = clearOperation;
+    __weak RandomUserListVC *weakSelf = self;
+    clearOperation.completionBlock = ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf hideDownloadState];
+            NSError *err = [weakOperation error];
+            if (err != nil) {
+                [weakSelf showError:err];
+            }
+        });
+    };
+    [self.queue addOperation:clearOperation];
+}
+
 - (void)downloadNewRandomUser {
     [self showDownloadState];
     FetchRemoteRandomUsers *downloadOperation = [[FetchRemoteRandomUsers alloc] init];
@@ -65,7 +89,7 @@
             }
         });
     };
-    [self.downloadQueue addOperation:downloadOperation];
+    [self.queue addOperation:downloadOperation];
 }
 
 - (void)showError:(NSError *)error {
@@ -99,11 +123,14 @@
     [loading sizeToFit];
     UIBarButtonItem *loadingBbi = [[UIBarButtonItem alloc] initWithCustomView:loading];
     [self.navigationItem setRightBarButtonItem:loadingBbi animated:YES];
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
 }
 
 - (void)hideDownloadState {
     UIBarButtonItem *addBbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(tappedAddBtn:)];
     [self.navigationItem setRightBarButtonItem:addBbi animated:YES];
+    UIBarButtonItem *clearBbi = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"") style:UIBarButtonItemStylePlain target:self action:@selector(tappedClearBtn:)];
+    [self.navigationItem setLeftBarButtonItem:clearBbi animated:YES];
 }
 
 #pragma mark - NSNotification

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		580494531E12B1D100EC8C5B /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 580494521E12B1D100EC8C5B /* CoreDataStack.m */; };
 		582D08021E13452D00B6059E /* RandomUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 582D08011E13452D00B6059E /* RandomUserCell.m */; };
+		582D08051E134D8200B6059E /* ClearOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 582D08041E134D8200B6059E /* ClearOperation.m */; };
 		5848A77B1E12D091009D38B3 /* RandomUserDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5848A77A1E12D091009D38B3 /* RandomUserDetailVC.m */; };
 		5848A77D1E12D4E7009D38B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5848A77C1E12D4E7009D38B3 /* Main.storyboard */; };
 		58E139FC1E129327005BF5E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58E139FB1E129327005BF5E8 /* main.m */; };
@@ -29,6 +30,8 @@
 		580494521E12B1D100EC8C5B /* CoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStack.m; sourceTree = "<group>"; };
 		582D08001E13452D00B6059E /* RandomUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserCell.h; sourceTree = "<group>"; };
 		582D08011E13452D00B6059E /* RandomUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserCell.m; sourceTree = "<group>"; };
+		582D08031E134D8200B6059E /* ClearOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClearOperation.h; sourceTree = "<group>"; };
+		582D08041E134D8200B6059E /* ClearOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClearOperation.m; sourceTree = "<group>"; };
 		5848A7791E12D091009D38B3 /* RandomUserDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUserDetailVC.h; sourceTree = "<group>"; };
 		5848A77A1E12D091009D38B3 /* RandomUserDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RandomUserDetailVC.m; sourceTree = "<group>"; };
 		5848A77C1E12D4E7009D38B3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 				58E13A211E129E0B005BF5E8 /* Operation.m */,
 				58E13A191E129C50005BF5E8 /* FetchRemoteRandomUsers.h */,
 				58E13A1A1E129C50005BF5E8 /* FetchRemoteRandomUsers.m */,
+				582D08031E134D8200B6059E /* ClearOperation.h */,
+				582D08041E134D8200B6059E /* ClearOperation.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				58E13A021E129327005BF5E8 /* RandomUserListVC.m in Sources */,
 				580494531E12B1D100EC8C5B /* CoreDataStack.m in Sources */,
 				5848A77B1E12D091009D38B3 /* RandomUserDetailVC.m in Sources */,
+				582D08051E134D8200B6059E /* ClearOperation.m in Sources */,
 				58E139FF1E129327005BF5E8 /* AppDelegate.m in Sources */,
 				58E13A221E129E0B005BF5E8 /* Operation.m in Sources */,
 				58E139FC1E129327005BF5E8 /* main.m in Sources */,
