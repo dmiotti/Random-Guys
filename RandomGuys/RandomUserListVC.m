@@ -50,16 +50,18 @@
 }
 
 - (void)downloadNewRandomUser {
+    [self showDownloadState];
     FetchRemoteRandomUsers *downloadOperation = [[FetchRemoteRandomUsers alloc] init];
     __weak FetchRemoteRandomUsers *weakOperation = downloadOperation;
     __weak RandomUserListVC *weakSelf = self;
     downloadOperation.completionBlock = ^{
-        NSError *err = [weakOperation error];
-        if (weakSelf != nil && err != nil) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf hideDownloadState];
+            NSError *err = [weakOperation error];
+            if (err != nil) {
                 [weakSelf showError:err];
-            });
-        }
+            }
+        });
     };
     [self.downloadQueue addOperation:downloadOperation];
 }
@@ -85,6 +87,21 @@
         RandomUserDetailVC *dest = (RandomUserDetailVC *)destination;
         dest.randomUser = ru;
     }
+}
+
+#pragma mark - Loading state
+
+- (void)showDownloadState {
+    UIActivityIndicatorView *loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [loading startAnimating];
+    [loading sizeToFit];
+    UIBarButtonItem *loadingBbi = [[UIBarButtonItem alloc] initWithCustomView:loading];
+    [self.navigationItem setRightBarButtonItem:loadingBbi animated:YES];
+}
+
+- (void)hideDownloadState {
+    UIBarButtonItem *addBbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(tappedAddBtn:)];
+    [self.navigationItem setRightBarButtonItem:addBbi animated:YES];
 }
 
 #pragma mark - NSNotification
