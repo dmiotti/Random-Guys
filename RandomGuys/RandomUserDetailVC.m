@@ -7,8 +7,10 @@
 //
 
 #import "RandomUserDetailVC.h"
+#import <MessageUI/MessageUI.h>
+#import <SafariServices/SafariServices.h>
 
-@interface RandomUserDetailVC ()<UITableViewDataSource, UITableViewDelegate>
+@interface RandomUserDetailVC ()<UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -55,21 +57,24 @@ typedef NS_ENUM(NSInteger, RandomUserDetailField) {
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     switch (indexPath.row) {
         case RandomUserDetailFieldTitle:
             cell.textLabel.text = NSLocalizedString(@"Title", @"");
             cell.detailTextLabel.text = self.randomUser.title;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
             
         case RandomUserDetailFieldFirstname:
             cell.textLabel.text = NSLocalizedString(@"Firstname", @"");
             cell.detailTextLabel.text = self.randomUser.firstname;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
             
         case RandomUserDetailFieldLastname:
             cell.textLabel.text = NSLocalizedString(@"Lastname", @"");
             cell.detailTextLabel.text = self.randomUser.lastname;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
             
         case RandomUserDetailFieldEmail:
@@ -110,6 +115,59 @@ typedef NS_ENUM(NSInteger, RandomUserDetailField) {
         default:
             break;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.row) {
+        case RandomUserDetailFieldEmail:
+            [self sendMail:self.randomUser.email];
+            break;
+            
+        case RandomUserDetailFieldPhone:
+            [self callNumber:self.randomUser.phone];
+            break;
+            
+        case RandomUserDetailFieldPicture:
+            [self openURLInSafari:self.randomUser.picture];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - Private actions
+
+- (void)sendMail:(NSString *)email {
+    if (![MFMailComposeViewController canSendMail]) {
+        return;
+    }
+    MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
+    [mail setToRecipients:@[self.randomUser.email]];
+    mail.mailComposeDelegate = self;
+    [self presentViewController:mail animated:YES completion:nil];
+}
+
+- (void)callNumber:(NSString *)phoneNumber {
+    NSString *URLString = [NSString stringWithFormat:@"tel://%@", phoneNumber];
+    NSURL *URL = [NSURL URLWithString:URLString];
+    if (URL && [[UIApplication sharedApplication] canOpenURL:URL]) {
+        [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
+    }
+}
+
+- (void)openURLInSafari:(NSString *)urlString {
+    NSURL *URL = [NSURL URLWithString:urlString];
+    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:URL];
+    [self presentViewController:safari animated:YES completion:nil];
+}
+
+#pragma mark - MFMailCompose Delegate
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
